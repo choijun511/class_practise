@@ -24,6 +24,11 @@ class Road(object):
     def can_two_way_travle(self):
         return True
 
+    def set_name(self, name):
+        if '死' in name:
+            raise ValueError('有敏感词汇')
+        self.name = name
+
     def __doc__(self):
         return '''这是一个路的抽象，init时传入名称，长度，宽度
         '''

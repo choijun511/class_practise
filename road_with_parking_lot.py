@@ -1,6 +1,7 @@
 '''
 有停车位的路
 '''
+import re
 from road import Road
 from car import Car
 
@@ -38,6 +39,11 @@ class RoadWithParkingLot(Road):
     def can_two_way_travle(self):
         return False
 
+    def set_name(self, name):
+        if not re.search('一|二|三|四|五|六|七|八|九', name):
+            raise ValueError('有停车位的路请用数字命名')
+        super(RoadWithParkingLot, self).set_name(name)
+
     def __repr__(self):
         description = super(RoadWithParkingLot, self).__repr__()
         return description.replace(self.__class__.__name__, self.__class__.__name__ + ':' + self.name)
@@ -67,10 +73,20 @@ def test_repr():
     print(cai_car)
 
 
+def test_set_name():
+    yuanling = RoadWithParkingLot('园岭八街', 100, 2, True, 20)
+    # yuanling.set_name('园岭哈哈哈哈')
+    print(yuanling)
+    super(RoadWithParkingLot, yuanling).set_name('园岭哈哈哈哈')
+    print('after set name')
+    print(yuanling)
+
+
 if __name__ == '__main__':
     cai_car = Car('cai')
     gong_car = Car('gong')
     cat_car = Car('baobao')
     # test_yuanling()
-    test_repr()
+    # test_repr()
     # test_bagualing()
+    test_set_name()
